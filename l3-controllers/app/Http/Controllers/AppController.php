@@ -9,7 +9,13 @@ class AppController extends Controller
 {
     public function homepage()
     {
-        $cities = DB::select('SELECT * FROM city');
+        $name = isset($_GET['name']) ? $_GET['name'] : ''; // Porto
+        $name = '%' . $name . '%'; // %Porto%
+
+        $params = [
+            $name
+        ];
+        $cities = DB::select('SELECT * FROM city WHERE Name LIKE ?', $params);
 
         $data = [
             'title' => 'Welcome to my website! Enjoy!',
@@ -23,6 +29,22 @@ class AppController extends Controller
         ];
 
         return view('homepage', $data);
+    }
+
+    public function getCities()
+    {
+        $cityUserInput = isset($_GET['city']) ? $_GET['city'] : '';
+        $cityQueryParam = '%' . $cityUserInput . '%';
+
+        $params = [$cityQueryParam];
+        $cities = DB::select('SELECT * FROM city WHERE Name LIKE ?', $params);
+
+        $data = [
+            'search' => $cityUserInput,
+            'cities' => $cities
+        ];
+
+        return view('cities', $data);
     }
 }
 

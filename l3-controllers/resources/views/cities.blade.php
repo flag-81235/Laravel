@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
 </head>
 
 <body>
-    <h1>{{ $title }}</h1>
-    <h2>Here's some movies...</h2>
+    <h1>City List</h1>
+    <form action="" method="GET">
+        <!-- <input type="text" placeholder="Search city" name="city" value="{{ $search }}"> -->
+        <input type="text" placeholder="Search city" name="city">
+        <button type="submit">Filter</button>
+    </form>
 
-    <ul>
-        @foreach($movies as $movie)
-        <li>{{ $movie }}</li>
-        @endforeach
-    </ul>
-
-    <h2>List of Cities</h2>
-    <table border="1">
+    @if (count($cities) > 0)
+    <h2>List of cities that match: {{ $search }}</h2>
+    <table>
         <thead>
             <tr>
                 <th>Name</th>
@@ -35,8 +35,10 @@
             </tr>
             @endforeach
         </tbody>
-
     </table>
+    @else
+    <h2>No cities matched `{{ $search }}`, why not try another search term? 😇</h2>
+    @endif
 </body>
 
 </html>

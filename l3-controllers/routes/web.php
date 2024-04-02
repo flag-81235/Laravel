@@ -7,3 +7,4 @@ use Illuminate\Support\Facades\Route;
 //     return view('homepage');
 // });
 Route::get('/', [AppController::class, 'homepage']);
+Route::get('/cities', [AppController::class, 'getCities']);
