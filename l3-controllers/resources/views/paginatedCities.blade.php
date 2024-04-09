@@ -54,15 +54,25 @@
     <a href="?page={{ $lastPage }}&num_rows={{ $num_rows }}">Last</a>
     @endif
 
-    <form action="" method="get">
-        <select name="num_rows">
-            <option>10</option>
-            <option>20</option>
-            <option>50</option>
-            <option>100</option>
+    <div>
+        <select name="num_rows" id="selectNumRows">
+            <?php $selected = $num_rows == 10 ? "selected" : ""; ?>
+            <option {{ $selected }}>10</option>
+            <?php $selected = $num_rows == 20 ? "selected" : ""; ?>
+            <option {{ $selected }}>20</option>
+            <?php $selected = $num_rows == 50 ? "selected" : ""; ?>
+            <option {{ $selected }}>50</option>
+            <?php $selected = $num_rows == 100 ? "selected" : ""; ?>
+            <option {{ $selected }}>100</option>
         </select>
-        <button type="submit">ok</button>
-    </form>
+    </div>
+
+    <script>
+        const selectNumRows = document.querySelector("#selectNumRows");
+        selectNumRows.addEventListener("change", function() {
+            window.location.href = `?num_rows=${selectNumRows.value}`;
+        });
+    </script>
 </body>
 
 </html>
