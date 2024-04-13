@@ -19,6 +19,17 @@
     <form action="" method="POST">
         @csrf
         <input name="name" placeholder="City name">
+        <br>
+        <select name="countryCode">
+            @foreach($countries as $country)
+            <option value="{{ $country->Code }}">{{ $country->Name }}</option>
+            @endforeach
+        </select>
+        <br>
+        <input name="district" placeholder="District">
+        <br>
+        <input name="population" placeholder="Population" type="number">
+        <br>
         <button>Submit</button>
     </form>
 </body>

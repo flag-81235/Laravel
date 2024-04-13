@@ -68,9 +68,12 @@ class CityController extends Controller
         $success = isset($_GET["success"]);
         $fail = isset($_GET["fail"]);
 
+        $countries = DB::select("SELECT Code, Name FROM country");
+
         $data = [
             "success" => $success,
-            "fail" => $fail
+            "fail" => $fail,
+            "countries" => $countries
         ];
 
         return view("addCity", $data);
@@ -78,9 +81,14 @@ class CityController extends Controller
 
     public function postAddCity()
     {
+        $name = isset($_POST["name"]) ? $_POST["name"] : "";
+        $countryCode = isset($_POST["countryCode"]) ? $_POST["countryCode"] : "PRT";
+        $district = isset($_POST["district"]) ? $_POST["district"] : "";
+        $population = isset($_POST["population"]) ? $_POST["population"] : 0;
+
         // Inserir na BD;
-        $bindings = ["Porto", "teste", 123, "PRT"];
-        $success = DB::insert("INSERT INTO city (ID, Name, District, Population, CountryCode) VALUES (NULL, ?, ?, ?, ?)", $bindings);
+        $bindings = [$name, $countryCode, $district, $population];
+        $success = DB::insert("INSERT INTO city VALUES (NULL, ?, ?, ?, ?)", $bindings);
 
         // Feito
         if ($success) {
